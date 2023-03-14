@@ -57,11 +57,11 @@ const API = {
             authorization: `Bearer ${token}`,
           },
         }).then((res) => res.json());
-      },
+    },
     getAvailableTools: () => {
         return fetch(`${URL_PREFIX}/api/tools/availableTools`).then((res) => res.json());
     },
-    getToolsById: (toolid) => {
+    getToolById: (toolid) => {
         return fetch(`${URL_PREFIX}/api/tools/${toolid}`).then((res) => res.json());
     },
     getToolsByType: (toolid) => {
@@ -79,12 +79,25 @@ const API = {
           body: JSON.stringify(toolObj),
         }).then((res) => res.json());
     },
-    TODO: // include tool in share request
-    TODO: // delete a tool
+    deleteGame: (id, token) => {
+        return fetch(`${URL_PREFIX}/api/games/${id}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }).then((res) => res.json());
+    },
     getUserById: (userid) => {
         return fetch(`${URL_PREFIX}/api/user/${userid}`).then((res) => res.json());
     },
-    TODO: // get all user shares
+    getSharesByUser: (token) => {
+        return fetch(`${URL_PREFIX}/api/shares/userShares`, {
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }).then((res) => res.json());
+    },
     createShare: (shareObj, token) => {
         return fetch(`${URL_PREFIX}/api/shares`, {
             method: "POST",
@@ -98,7 +111,9 @@ const API = {
     getAllShares: () => {
         return fetch(`${URL_PREFIX}/api/shares`).then((res) => res.json());
     },
-    TODO: // get shares by id
+    getToolById: (toolid) => {
+        return fetch(`${URL_PREFIX}/api/tools/${toolid}`).then((res) => res.json());
+    },
     confirmShareRequest: (shareObj, shareid) => {
         return fetch(`${URL_PREFIX}/api/tools/confirm/${shareid}`, {
           method: "PUT",
@@ -111,7 +126,12 @@ const API = {
           body: JSON.stringify(shareObj),
         }).then((res) => res.json());
     },
-    
+    includeToolInShareRequest: (shareObj, id) => {
+        return fetch(`${URL_PREFIX}/api/tools/includeInShare/${id}`, {
+          method: "PUT",
+          body: JSON.stringify(shareObj),
+        }).then((res) => res.json());
+    },
 };
 
 export default API;
