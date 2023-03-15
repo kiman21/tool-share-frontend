@@ -1,5 +1,4 @@
-TODO: //add heroku url
-const URL_PREFIX = "";
+const URL_PREFIX = "https://tool-share-back.herokuapp.com/";
 
 const API = {
     getUserData:(id, token) =>{
@@ -76,10 +75,13 @@ const API = {
     returnTool: (toolObj, toolid) => {
         return fetch(`${URL_PREFIX}/api/tools/return/${toolid}`, {
           method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
           body: JSON.stringify(toolObj),
         }).then((res) => res.json());
     },
-    deleteGame: (id, token) => {
+    deleteTool: (id, token) => {
         return fetch(`${URL_PREFIX}/api/games/${id}`, {
           method: "DELETE",
           headers: {
@@ -111,24 +113,24 @@ const API = {
     getAllShares: () => {
         return fetch(`${URL_PREFIX}/api/shares`).then((res) => res.json());
     },
-    getToolById: (toolid) => {
-        return fetch(`${URL_PREFIX}/api/tools/${toolid}`).then((res) => res.json());
+    getShareById: (shareid) => {
+        return fetch(`${URL_PREFIX}/api/shares/${shareid}`).then((res) => res.json());
     },
     confirmShareRequest: (shareObj, shareid) => {
         return fetch(`${URL_PREFIX}/api/tools/confirm/${shareid}`, {
           method: "PUT",
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
           body: JSON.stringify(shareObj),
         }).then((res) => res.json());
     },
     denyShareRequest: (shareObj, shareid) => {
         return fetch(`${URL_PREFIX}/api/tools/deny/${shareid}`, {
           method: "PUT",
-          body: JSON.stringify(shareObj),
-        }).then((res) => res.json());
-    },
-    includeToolInShareRequest: (shareObj, id) => {
-        return fetch(`${URL_PREFIX}/api/tools/includeInShare/${id}`, {
-          method: "PUT",
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
           body: JSON.stringify(shareObj),
         }).then((res) => res.json());
     },
