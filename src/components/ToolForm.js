@@ -19,14 +19,12 @@ function ToolForm(props) {
     }
     return (
         <div>
+          <h1>Submit a Tool:</h1>
           <form className="form">
-            <input
-              value={toolType}
-              name="toolType"
-              onChange={handleInputChange}
-              type="text"
-              placeholder="Select Tool Type:"
-            />
+            <label for "toollist">Tool Type:</label>
+            <select id="toollist" name="toollist">
+              <option></option>
+            </select>
             <input
               value={toolName}
               name="toolName"
