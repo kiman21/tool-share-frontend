@@ -1,20 +1,32 @@
 import React, { useState } from 'react';
+import API from "../../utils/API";
 
-function ToolForm(props) {
+const ToolForm = (props) => {
     const [toolType, setToolType] = useState('');
     const [toolName, setToolName] = useState('');
+      tool: props.tool || "",
 
     const handleInputChange = (e) => {
         const {tool, value} = e.target;
-
+        setFormData({
+          ...formData,
+          [e.target.name]: e.target.value
+        })
         return tool==='toolName' ? setToolType(value) : setToolName(value);
     };
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
+        const toolData = {
+          ...formData
+        };
+        API.addTool(toolData, props.token).then((data) => {
+          console.log(data);
+        })
         alert('Your tool is ready for lending!');
         setToolName('');
         setToolType('');
+        props.fetchData();
 
     }
     return (
