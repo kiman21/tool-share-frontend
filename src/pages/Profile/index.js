@@ -20,6 +20,7 @@ const Profile = (props) => {
         setIsMyPage(false);
       }
     });
+
   };
 
 };
