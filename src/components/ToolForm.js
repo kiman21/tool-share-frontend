@@ -5,7 +5,6 @@ const ToolForm = (props) => {
     const [toolType, setToolType] = useState('');
     const [toolName, setToolName] = useState('');
       tool: props.tool || "",
-
     const handleInputChange = (e) => {
         const {tool, value} = e.target;
         setFormData({
@@ -33,13 +32,15 @@ const ToolForm = (props) => {
         <div>
           <h1>Submit a Tool:</h1>
           <form className="form">
-            <label for "toollist">Tool Type:</label>
+            <label>Tool Type:</label>
             <select id="toollist" name="toollist">
-              <option></option>
+              <option value="Saw">Saw</option>
+              <option value="Drill">Drill</option>
+              <option value="Sander">Sander</option>
             </select>
             <input
-              value={toolName}
-              name="toolName"
+              value={toolname}
+              name="toolname"
               onChange={handleInputChange}
               type="text"
               placeholder="Tool Description"

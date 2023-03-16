@@ -19,3 +19,16 @@ const ToolSubmit = (props) => {
         }
       });
     };
+    useEffect(() => {
+        fetchUser();
+      }, [props.userId,params.id]);
+      return (
+        <div>
+          {isMyPage && <ToolForm token={props.token} fetchData={fetchUser}  role="create" />}
+        <ToolForm/>
+        </div>
+      );
+    };
+    
+    export default ToolSubmit;
+    
