@@ -7,16 +7,12 @@ import DataWindow from "../../components/DataWindow";
 import ToolForm from "../../components/ToolForm";
 
 const Profile = (props) => {
-    // console.log('Profile - token:', props.token);
     const params = useParams();
-    // console.log('Profile - token:', props.token);
     console.log(params);
     const [user, setUser] = useState({});
     const [isMyPage, setIsMyPage] = useState(false);
     useEffect(() => {
-      // console.log('useEffect - token:', props.token);
       const fetchUser = () => {
-        // console.log('fetchUser - token:', props.token);
         API.getUserData(params.id, props.token).then((data) => {
           setUser(data);
           console.log(props.userId);
