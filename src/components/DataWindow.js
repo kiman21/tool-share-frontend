@@ -1,6 +1,4 @@
 import React from "react";
-// import { useParams } from "react-router-dom";
-// import API from "../../utils/API";
 
 const DataWindow = ({ title, dataList, onItemClick }) => {
     return (
