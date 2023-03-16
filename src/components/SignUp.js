@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 
-function SignIn() {
+function SignUp() {
     const [username, setUsername] = useState('');
+    const [userEmail, setUserEmail] = useState('');
     const [password, setPassword] = useState('');
   
     const handleInputChange = (e) => {
       const { name, value } = e.target;
   
-      return name === 'username' ? setUsername(value) : setPassword(value);
+      if (name === 'userName') {
+        setUsername(value);
+      } else if (name === 'userEmail') {
+        setUserEmail(value);
+      } else {
+        setPassword(value);
+      }
     };
   
     const handleFormSubmit = (e) => {
@@ -26,6 +33,13 @@ function SignIn() {
               placeholder="Username"
             />
             <input
+              value={userEmail}
+              name="userEmail"
+              onChange={handleInputChange}
+              type="Email"
+              placeholder="Email Address"
+            />
+            <input
               value={password}
               name="password"
               onChange={handleInputChange}
@@ -40,4 +54,4 @@ function SignIn() {
       );
 }
 
-export default SignIn;
+export default SignUp;

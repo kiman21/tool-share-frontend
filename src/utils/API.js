@@ -1,18 +1,19 @@
-const URL_PREFIX = "https://tool-share-back.herokuapp.com/";
+const URL_PREFIX = "https://tool-share-back.herokuapp.com";
 
 const API = {
     getUserData:(id, token) =>{
-        return fetch(`${URL_PREFIX}/api/users/${id}`), {
+        return fetch(`${URL_PREFIX}/api/users/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 },
-        }.then(res=>res.json())
+        }).then(res=>res.json());
     },
     isValidToken: (token) => {
+        console.log('API - isValidToken - token:', token);
         return fetch(`${URL_PREFIX}/api/users/isValidToken`, {
-        headers: {
-            authorization: `Bearer ${token}`,
-        },
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
         }).then((res) => res.json());
     },
     getAllUsers: () => {
@@ -28,7 +29,7 @@ const API = {
         }).then((res) => res.json());
     },
     signup: (signupObj) => {
-        return fetch(`${URL_PREFIX}/api/users/signup`, {
+        return fetch(`${URL_PREFIX}/api/users/`, {
             method: "POST",
             body: JSON.stringify(signupObj),
             headers: {
@@ -72,7 +73,7 @@ const API = {
           body: JSON.stringify(toolObj),
         }).then((res) => res.json());
     },
-    returnTool: (toolObj, toolid) => {
+    returnTool: (toolObj, toolid, token) => {
         return fetch(`${URL_PREFIX}/api/tools/return/${toolid}`, {
           method: "PUT",
           headers: {
@@ -82,7 +83,7 @@ const API = {
         }).then((res) => res.json());
     },
     deleteTool: (id, token) => {
-        return fetch(`${URL_PREFIX}/api/games/${id}`, {
+        return fetch(`${URL_PREFIX}/api/tools/${id}`, {
           method: "DELETE",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -93,6 +94,7 @@ const API = {
         return fetch(`${URL_PREFIX}/api/user/${userid}`).then((res) => res.json());
     },
     getSharesByUser: (token) => {
+        console.log("Token inside getSharesByUser:", token);
         return fetch(`${URL_PREFIX}/api/shares/userShares`, {
           method: "GET",
           headers: {
@@ -116,7 +118,7 @@ const API = {
     getShareById: (shareid) => {
         return fetch(`${URL_PREFIX}/api/shares/${shareid}`).then((res) => res.json());
     },
-    confirmShareRequest: (shareObj, shareid) => {
+    confirmShareRequest: (shareObj, shareid, token) => {
         return fetch(`${URL_PREFIX}/api/tools/confirm/${shareid}`, {
           method: "PUT",
           headers: {
@@ -125,7 +127,7 @@ const API = {
           body: JSON.stringify(shareObj),
         }).then((res) => res.json());
     },
-    denyShareRequest: (shareObj, shareid) => {
+    denyShareRequest: (shareObj, shareid, token) => {
         return fetch(`${URL_PREFIX}/api/tools/deny/${shareid}`, {
           method: "PUT",
           headers: {

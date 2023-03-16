@@ -40,13 +40,14 @@ const Signin = (props) => {
       password:loginPassword
     }
     API.login(userObj).then(data=>{
-      console.log(data);
+      console.log("API response:", data);
       if(data.token){
         props.setToken(data.token);
         props.setIsLoggedIn(true);
         props.setUserId(data.user.id)
       }
       localStorage.setItem("token",data.token)
+      console.log("Token saved in local storage:", localStorage.getItem("token"));
       setLoginEmail("");
       setLoginPassword("")
     })
@@ -59,13 +60,14 @@ const Signin = (props) => {
       password:signupPassword
     }
     API.signup(userObj).then(data=>{
-      console.log(data);
+      console.log("API response:", data);
       if(data.token){
         props.setToken(data.token);
         props.setIsLoggedIn(true);
         props.setUserId(data.user.id)
       }
       localStorage.setItem("token",data.token)
+      console.log("Token saved in local storage:", localStorage.getItem("token"));
       setSignupEmail("");
       setSignupUsername("");
       setSignupPassword("")

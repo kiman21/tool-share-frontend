@@ -1,24 +1,59 @@
-import {BrowserRouter, Routes, Route} from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Signin from "./pages/Signin";
-import Profile from "./pages/Profile";
-
-
+import React, { useState, useEffect } from 'react';
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import Nav from "./components/Nav/index"
+import SignIn from "./pages/SignIn/index";
+import Home from "./pages/Home/index";
+import Profile from "./pages/Profile/index";
+import API from "./utils/API";
 
 function App() {
-    return (
+    const [token, setToken] = useState("");
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [userId, setUserId] = useState(0);
+    const [username, setUsername] = useState("");
 
-            <BrowserRouter>
-            <Navbar/>
-                <Routes>
-                    <Route path="/signin" element={<h1>Sign In</h1>}/>
-                    <Route path="/profile" element={<h1>User Profile</h1>}/>
-                    <Route path="/toolform" element={<h1>Submit a Tool</h1>}/>
-                    <Route path="/toolarrangement" element={<h1>Borrow a Tool</h1>}/>
-                    <Route path="*" element={<h1>404 page not found</h1>}/>
-                </Routes>
-            </BrowserRouter>
-    );
+    useEffect(() => {
+      const savedToken = localStorage.getItem("token");
+      console.log('App.js - savedToken:', savedToken);
+      console.log(savedToken);
+      if (savedToken) {
+        console.log('App.js - passing savedToken to API.isValidToken:', savedToken);
+        API.isValidToken(savedToken).then((tokenData) => {
+          if (tokenData.isValid) {
+            setToken(savedToken);
+            setUserId(tokenData.user.id);
+            setIsLoggedIn(true);
+          } else {
+            localStorage.removeItem("token");
+          }
+        });
+      }
+    }, []);
+
+    const logout = () => {
+        setToken("");
+        setUserId(0);
+        setIsLoggedIn(false);
+        localStorage.removeItem("token");
+        return (
+            window.location.href = "/"
+        )
+    };
+
+
+
+    return (
+      <Router>
+      <Nav isLoggedIn={isLoggedIn} userId={userId} logout={logout}/>
+          <Routes>
+              <Route path="/signin" element={<SignIn setToken={setToken} setUserId={setUserId} setUsername={setUsername} setIsLoggedIn={setIsLoggedIn} userId={userId}/>}/>
+              {console.log('Parent - token:', token)}
+              <Route path="/profile/:id" element={<Profile token={token} userId={userId} username={username}/>}/>
+              <Route path="/home" element={<Home isLoggedIn={isLoggedIn} token={token} userId={userId}/>}/>
+              <Route path="*" element={<h1>404 page not found</h1>}/>
+          </Routes>
+      </Router>
+  );
 }
 
 export default App;
