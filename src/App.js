@@ -2,6 +2,7 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Signin from "./pages/Signin";
 import Profile from "./pages/Profile";
+import ToolForm from "./components/ToolForm";
 
 
 
@@ -9,12 +10,12 @@ function App() {
     return (
 
             <BrowserRouter>
-            <Navbar/>
+             <Navbar/>
                 <Routes>
-                    <Route path="/signin" element={<h1>Sign In</h1>}/>
-                    <Route path="/profile" element={<h1>User Profile</h1>}/>
-                    <Route path="/toolform" element={<h1>Submit a Tool</h1>}/>
-                    <Route path="/toolarrangement" element={<h1>Borrow a Tool</h1>}/>
+                    <Route path="/" element={<Signin setToken={setToken} setUserId={setUserId} setIsLoggedIn={setIsLoggedIn}/>}/>
+                    <Route path="/profile" element={<Profile token={token} userId={userId}/>}/>
+                    <Route path="/toolform" element={<ToolForm token={token} userId={userId}/>}/>
+                    <Route path="/toolarrangement" element={<ToolArrangement token={token} userId={userId}/>}/>
                     <Route path="*" element={<h1>404 page not found</h1>}/>
                 </Routes>
             </BrowserRouter>
