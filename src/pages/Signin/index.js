@@ -45,6 +45,8 @@ const Signin = (props) => {
         props.setToken(data.token);
         props.setIsLoggedIn(true);
         props.setUserId(data.user.id)
+      } else {
+        alert("There was an error logging in, please try again.")
       }
       localStorage.setItem("token",data.token)
       console.log("Token saved in local storage:", localStorage.getItem("token"));
@@ -65,6 +67,8 @@ const Signin = (props) => {
         props.setToken(data.token);
         props.setIsLoggedIn(true);
         props.setUserId(data.user.id)
+      } else {
+        alert("There was an error signing up, please try again.")
       }
       localStorage.setItem("token",data.token)
       console.log("Token saved in local storage:", localStorage.getItem("token"));
