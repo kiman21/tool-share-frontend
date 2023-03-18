@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
 function SignIn() {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
   
     const handleInputChange = (e) => {
       const { name, value } = e.target;
   
-      return name === 'username' ? setUsername(value) : setPassword(value);
+      return name === 'email' ? setEmail(value) : setPassword(value);
     };
   
     const handleFormSubmit = (e) => {
@@ -19,11 +19,11 @@ function SignIn() {
         <div>
           <form className="form">
             <input
-              value={username}
-              name="username"
+              value={email}
+              name="email"
               onChange={handleInputChange}
               type="text"
-              placeholder="Username"
+              placeholder="email"
             />
             <input
               value={password}
