@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./index.css"
 
-const ToolArrangementForm = ({ userId, selectedTool, handleNewPendingRequest, closeForm }) => {
+const ToolArrangementForm = ({ userId, token, selectedTool, handleNewPendingRequest, closeForm }) => {
   const [shareNotes, setShareNotes] = useState('');
 
   const handleInputChange = (event) => {
@@ -13,13 +13,16 @@ const ToolArrangementForm = ({ userId, selectedTool, handleNewPendingRequest, cl
 
     const formData = new FormData(event.target);
     const shareData = {
-      Tool_Id: selectedTool.id,
+      toolId: selectedTool.id,
       notes: formData.get('notes'),
       Borrower_Id: userId,
-      Lender_Id: selectedTool.ownerId,
+      Lender_Id: selectedTool.Owner_Id,
+      date: new Date().toISOString().split('T')[0],
     };
 
-    handleNewPendingRequest(shareData);
+    console.log('shareData:', shareData);
+
+    handleNewPendingRequest(shareData, token);
     closeForm();
   };
 

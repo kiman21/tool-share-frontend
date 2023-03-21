@@ -21,7 +21,7 @@ function App() {
       console.log(savedToken);
       if (savedToken) {
         console.log('App.js - passing savedToken to API.isValidToken:', savedToken);
-        API.isValidToken(savedToken).then((tokenData) => {
+        API.isValidToken(savedToken).then(tokenData => {
           if (tokenData.isValid) {
             setToken(savedToken);
             setUserId(tokenData.user.id);
@@ -31,7 +31,7 @@ function App() {
           }
         });
       }
-    }, []);
+    }, [])
 
     const logout = () => {
         setToken("");

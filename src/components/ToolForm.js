@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import API from "../utils/API";
 import "./index.css"
 
-const ToolForm = ({ userId, closeForm }) => {
+const ToolForm = ({ userId, onSubmit }) => {
 
   const toolTypes = [
     { id: 1, name: 'Saw' },
@@ -14,7 +14,8 @@ const ToolForm = ({ userId, closeForm }) => {
   const [toolType, setToolType] = useState('');
   const [toolDescription, setToolDescription] = useState('');
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     const toolData = {
       toolname: toolName,
@@ -23,13 +24,7 @@ const ToolForm = ({ userId, closeForm }) => {
       Owner_Id: userId,
     };
 
-    try {
-      await API.createTool(toolData);
-
-      closeForm();
-    } catch (error) {
-      console.error('Failed to create tool:', error);
-    }
+    onSubmit(toolData);
 };
 
   return (

@@ -2,6 +2,7 @@ const URL_PREFIX = "https://tool-share-back.herokuapp.com";
 
 const API = {
     getUserData:(id, token) =>{
+        console.log('API - getUserData - token:', token);
         return fetch(`${URL_PREFIX}/api/users/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -41,16 +42,22 @@ const API = {
         return fetch(`${URL_PREFIX}/api/tools`).then((res) => res.json());
     },
     createTool: (toolObj, token) => {
+        console.log('API - createTool - token:', token);
         return fetch(`${URL_PREFIX}/api/tools`, {
             method: "POST",
-            body: JSON.stringify(toolObj),
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
             },
+            body: JSON.stringify(toolObj),
         }).then((res) => res.json());
     },
     getToolsByOwner: (token) => {
+        if (!token) {
+            console.error("Token is undefined in getSharesByUser");
+            return;
+          }
+        console.log("Token inside getToolsByOwner:", token);
         return fetch(`${URL_PREFIX}/api/tools/ownerTools`, {
           method: "GET",
           headers: {
@@ -73,17 +80,18 @@ const API = {
           body: JSON.stringify(toolObj),
         }).then((res) => res.json());
     },
-    returnTool: (toolObj, toolid, token) => {
+    returnTool: (toolid, available, token) => {
         return fetch(`${URL_PREFIX}/api/tools/return/${toolid}`, {
           method: "PUT",
           headers: {
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(toolObj),
+          body: JSON.stringify({ available }),
         }).then((res) => res.json());
     },
-    deleteTool: (id, token) => {
-        return fetch(`${URL_PREFIX}/api/tools/${id}`, {
+    deleteTool: (toolid, token) => {
+        console.log("Token inside deleteTool:", token);
+        return fetch(`${URL_PREFIX}/api/tools/${toolid}`, {
           method: "DELETE",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -94,6 +102,10 @@ const API = {
         return fetch(`${URL_PREFIX}/api/user/${userid}`).then((res) => res.json());
     },
     getSharesByUser: (token) => {
+        if (!token) {
+            console.error("Token is undefined in getSharesByUser");
+            return;
+          }
         console.log("Token inside getSharesByUser:", token);
         return fetch(`${URL_PREFIX}/api/shares/userShares`, {
           method: "GET",
@@ -103,13 +115,14 @@ const API = {
         }).then((res) => res.json());
     },
     createShare: (shareObj, token) => {
+        console.log("Token inside createShare:", token);
         return fetch(`${URL_PREFIX}/api/shares`, {
             method: "POST",
-            body: JSON.stringify(shareObj),
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
             },
+            body: JSON.stringify(shareObj),
         }).then((res) => res.json());
     },
     getAllShares: () => {
@@ -118,22 +131,20 @@ const API = {
     getShareById: (shareid) => {
         return fetch(`${URL_PREFIX}/api/shares/${shareid}`).then((res) => res.json());
     },
-    confirmShareRequest: (shareObj, shareid, token) => {
-        return fetch(`${URL_PREFIX}/api/tools/confirm/${shareid}`, {
+    confirmShareRequest: ( shareid, token) => {
+        return fetch(`${URL_PREFIX}/api/shares/confirm/${shareid}`, {
           method: "PUT",
           headers: {
             authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(shareObj),
         }).then((res) => res.json());
     },
-    denyShareRequest: (shareObj, shareid, token) => {
-        return fetch(`${URL_PREFIX}/api/tools/deny/${shareid}`, {
+    denyShareRequest: (shareid, token) => {
+        return fetch(`${URL_PREFIX}/api/shares/deny/${shareid}`, {
           method: "PUT",
           headers: {
             authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(shareObj),
         }).then((res) => res.json());
     },
 };
