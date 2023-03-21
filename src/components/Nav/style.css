@@ -1,9 +1,16 @@
 .Navbar {
     display: flex;
     justify-content: space-around;
+    background-color: #E27425;
+    margin: 3px;
+    border: 5px solid gray;
+    border-style: groove;
 }
 
 .Navbar * {
     font-size: 2rem;
     padding: 10px;
+    text: black;
+    font-weight: bold;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
 }
