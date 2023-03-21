@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import Nav from "./components/Nav/index"
+import Nav from "./components/Nav/index";
 import SignIn from "./pages/SignIn/index";
 import Home from "./pages/Home/index";
 import Profile from "./pages/Profile/index";
@@ -18,7 +18,7 @@ function App() {
       console.log(savedToken);
       if (savedToken) {
         console.log('App.js - passing savedToken to API.isValidToken:', savedToken);
-        API.isValidToken(savedToken).then((tokenData) => {
+        API.isValidToken(savedToken).then(tokenData => {
           if (tokenData.isValid) {
             setToken(savedToken);
             setUserId(tokenData.user.id);
@@ -28,7 +28,7 @@ function App() {
           }
         });
       }
-    }, []);
+    }, [])
 
     const logout = () => {
         setToken("");

@@ -1,6 +1,6 @@
 import React from "react";
 
-const DataWindow = ({ title, dataList, onItemClick }) => {
+const DataWindow = ({ title, dataList, onItemClick, renderItem }) => {
     return (
         <div className="data-window-container">
             <h3>{title}</h3>
@@ -8,10 +8,15 @@ const DataWindow = ({ title, dataList, onItemClick }) => {
                 {dataList && Array.isArray(dataList) && dataList.map((item) => (
                 <li
                     key={item.id}
-                    onClick={() => onItemClick && onItemClick(item)}
-                    style={{ cursor: onItemClick ? "pointer" : "default" }}
+                    onClick={(e) => {
+                        if (onItemClick) {
+                          e.stopPropagation();
+                          onItemClick(item);
+                        }
+                      }}
+                      style={{ cursor: onItemClick ? "pointer" : "default" }}
                 >
-                    {item.name}
+                    {renderItem ? renderItem(item) : item.name}
                 </li>
                 ))}
             </ul>

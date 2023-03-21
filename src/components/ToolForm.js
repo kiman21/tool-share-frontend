@@ -1,51 +1,7 @@
-// import React, { useState } from 'react';
-
-// function ToolForm(props) {
-//     const [toolType, setToolType] = useState('');
-//     const [toolName, setToolName] = useState('');
-
-//     const handleInputChange = (e) => {
-//         const {tool, value} = e.target;
-
-//         return tool==='toolName' ? setToolType(value) : setToolName(value);
-//     };
-
-//     const handleFormSubmit = (e) => {
-//         e.preventDefault();
-//         alert('Your tool is ready for lending!');
-//         setToolName('');
-//         setToolType('');
-
-//     }
-    // return (
-    //     <div>
-    //       <h1>Submit a Tool:</h1>
-    //       <form className="form">
-    //         <label for "toollist">Tool Type:</label>
-    //         <select id="toollist" name="toollist">
-    //           <option></option>
-    //         </select>
-    //         <input
-    //           value={toolName}
-    //           name="toolName"
-    //           onChange={handleInputChange}
-    //           type="text"
-    //           placeholder="Tool Description"
-    //         />
-    //         <button type="button" onClick={handleFormSubmit}>
-    //           Submit
-    //         </button>
-    //       </form>
-    //     </div>
-    //   );
-// }
-
-// export default ToolForm;
-
 import React, { useState } from 'react';
-import API from "../utils/API";
+// import API from "../utils/API";
 
-const ToolForm = ({ userId, closeForm }) => {
+const ToolForm = ({ userId, onSubmit }) => {
 
   const toolTypes = [
     { id: 1, name: 'Saw' },
@@ -57,7 +13,8 @@ const ToolForm = ({ userId, closeForm }) => {
   const [toolType, setToolType] = useState('');
   const [toolDescription, setToolDescription] = useState('');
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     const toolData = {
       toolname: toolName,
@@ -66,13 +23,7 @@ const ToolForm = ({ userId, closeForm }) => {
       Owner_Id: userId,
     };
 
-    try {
-      await API.createTool(toolData);
-
-      closeForm();
-    } catch (error) {
-      console.error('Failed to create tool:', error);
-    }
+    onSubmit(toolData);
 };
 
   return (

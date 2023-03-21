@@ -1,13 +1,24 @@
 import React from 'react';
 
-const RequestForm = ({ onShareRequestConfirm, onShareRequestDeny }) => {
+const PendingRequestForm = ({ onRequestConfirm, onRequestDeny, onClose }) => {
   return (
-    <div>
-      <h4> New Request! </h4>
-      <button onClick={onShareRequestConfirm}>Confirm</button>
-      <button onClick={onShareRequestDeny}>Deny</button>
-    </div>
+    <form>
+      <h4>New Request!</h4>
+      {/* ... */}
+      <button type="button" onClick={() => {
+        onRequestConfirm();
+        onClose();
+      }}>
+        Confirm
+      </button>
+      <button type="button" onClick={() => {
+        onRequestDeny();
+        onClose();
+      }}>
+        Deny
+      </button>
+    </form>
   );
 };
 
-export default RequestForm;
+export default PendingRequestForm;

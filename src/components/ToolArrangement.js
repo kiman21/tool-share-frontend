@@ -1,52 +1,6 @@
-// import React from 'react';
-
-// function ToolArrangementForm(props) {
-//     const [toolType, setToolType] = useState('');
-//     const [toolName, setToolName] = useState('');
-
-//     const handleInputChange = (e) => {
-//         const {tool, value} = e.target;
-
-//         return tool==='toolName' ? setToolType(value) : setToolName(value);
-//     };
-
-//     const handleFormSubmit = (e) => {
-//         e.preventDefault();
-//         alert('Your tool request has been submitted');
-//         setToolName('');
-//         setToolType('');
-
-//     }
-    // return (
-    //     <div>
-    //       <form className="form">
-    //         <input
-    //           value={toolType}
-    //           name="toolType"
-    //           onChange={handleInputChange}
-    //           type="text"
-    //           placeholder="Select Tool Type:"
-    //         />
-    //         <input
-    //           value={toolName}
-    //           name="toolName"
-    //           onChange={handleInputChange}
-    //           type="text"
-    //           placeholder="Tool Description"
-    //         />
-    //         <button type="button" onClick={handleFormSubmit}>
-    //           Submit
-    //         </button>
-    //       </form>
-    //     </div>
-    //   );
-// }
-
-// export default ToolArrangementForm;
-
 import React, { useState } from 'react';
 
-const ToolArrangementForm = ({ userId, selectedTool, handleNewPendingRequest, closeForm }) => {
+const ToolArrangementForm = ({ userId, token, selectedTool, handleNewPendingRequest, closeForm }) => {
   const [shareNotes, setShareNotes] = useState('');
 
   const handleInputChange = (event) => {
@@ -58,13 +12,16 @@ const ToolArrangementForm = ({ userId, selectedTool, handleNewPendingRequest, cl
 
     const formData = new FormData(event.target);
     const shareData = {
-      Tool_Id: selectedTool.id,
+      toolId: selectedTool.id,
       notes: formData.get('notes'),
       Borrower_Id: userId,
-      Lender_Id: selectedTool.ownerId,
+      Lender_Id: selectedTool.Owner_Id,
+      date: new Date().toISOString().split('T')[0],
     };
 
-    handleNewPendingRequest(shareData);
+    console.log('shareData:', shareData);
+
+    handleNewPendingRequest(shareData, token);
     closeForm();
   };
 
