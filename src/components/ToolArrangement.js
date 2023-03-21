@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import "./index.css"
 
 const ToolArrangementForm = ({ userId, token, selectedTool, handleNewPendingRequest, closeForm }) => {
   const [shareNotes, setShareNotes] = useState('');
@@ -26,15 +27,16 @@ const ToolArrangementForm = ({ userId, token, selectedTool, handleNewPendingRequ
   };
 
   return (
-    <form onSubmit={handleFormSubmit}>
-      <input
+    <form class="page" onSubmit={handleFormSubmit}>
+      <label class="title" htmlFor="notes">Submit a Request to Borrow a Tool:</label>
+      <input class="input"
         value={shareNotes}
         name="notes"
         onChange={handleInputChange}
         type="text"
         placeholder="Request Notes (optional)"
       />
-      <button type="submit">Submit</button>
+      <button class="button" type="submit">Submit</button>
     </form>
   );
 };

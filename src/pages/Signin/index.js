@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-// import "./style.css"
+import "./index.css"
 import API from "../../utils/API"
 
 const Signin = (props) => {
@@ -45,6 +45,8 @@ const Signin = (props) => {
         props.setToken(data.token);
         props.setIsLoggedIn(true);
         props.setUserId(data.user.id)
+      } else {
+        alert("There was an error logging in, please try again.")
       }
       localStorage.setItem("token",data.token)
       console.log("Token saved in local storage:", localStorage.getItem("token"));
@@ -65,6 +67,8 @@ const Signin = (props) => {
         props.setToken(data.token);
         props.setIsLoggedIn(true);
         props.setUserId(data.user.id)
+      } else {
+        alert("There was an error signing up, please try again.")
       }
       localStorage.setItem("token",data.token)
       console.log("Token saved in local storage:", localStorage.getItem("token"));
@@ -76,17 +80,17 @@ const Signin = (props) => {
 
 
   return (
-    <div className="Login">
-       <form onSubmit={handleLoginSubmit}>
-        <input name="loginEmail" value={loginEmail} onChange={handleInputChange} placeholder="email"/>
-        <input name="loginPassword" value={loginPassword} onChange={handleInputChange} placeholder="password" type="password"/>
-        <button>Login</button>
+    <div class="page">
+       <form class="login" onSubmit={handleLoginSubmit}>
+        <input class="input" name="loginEmail" value={loginEmail} onChange={handleInputChange} placeholder="email"/>
+        <input class="input" name="loginPassword" value={loginPassword} onChange={handleInputChange} placeholder="password" type="password"/>
+        <button class="button">Login</button>
        </form>
-       <form onSubmit={handleSignupSubmit}>
-        <input name="signupEmail" value={signupEmail} onChange={handleInputChange} placeholder="email"/>
-        <input name="signupUsername" value={signupUsername} onChange={handleInputChange} placeholder="username"/>
-        <input name="signupPassword" value={signupPassword} onChange={handleInputChange} placeholder="password" type="password"/>
-        <button>Signup</button>
+       <form class="login" onSubmit={handleSignupSubmit}>
+        <input class="input" name="signupEmail" value={signupEmail} onChange={handleInputChange} placeholder="email"/>
+        <input class="input" name="signupUsername" value={signupUsername} onChange={handleInputChange} placeholder="username"/>
+        <input class="input" name="signupPassword" value={signupPassword} onChange={handleInputChange} placeholder="password" type="password"/>
+        <button class="button">Signup</button>
        </form>
     </div>
   )
