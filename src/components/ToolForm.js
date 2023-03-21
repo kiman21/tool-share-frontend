@@ -1,49 +1,6 @@
-// import React, { useState } from 'react';
-
-// function ToolForm(props) {
-//     const [toolType, setToolType] = useState('');
-//     const [toolName, setToolName] = useState('');
-
-//     const handleInputChange = (e) => {
-//         const {tool, value} = e.target;
-
-//         return tool==='toolName' ? setToolType(value) : setToolName(value);
-//     };
-
-//     const handleFormSubmit = (e) => {
-//         e.preventDefault();
-//         alert('Your tool is ready for lending!');
-//         setToolName('');
-//         setToolType('');
-
-//     }
-    // return (
-    //     <div>
-    //       <h1>Submit a Tool:</h1>
-    //       <form className="form">
-    //         <label for "toollist">Tool Type:</label>
-    //         <select id="toollist" name="toollist">
-    //           <option></option>
-    //         </select>
-    //         <input
-    //           value={toolName}
-    //           name="toolName"
-    //           onChange={handleInputChange}
-    //           type="text"
-    //           placeholder="Tool Description"
-    //         />
-    //         <button type="button" onClick={handleFormSubmit}>
-    //           Submit
-    //         </button>
-    //       </form>
-    //     </div>
-    //   );
-// }
-
-// export default ToolForm;
-
 import React, { useState } from 'react';
 import API from "../utils/API";
+import "./index.css"
 
 const ToolForm = ({ userId, closeForm }) => {
 
@@ -76,39 +33,40 @@ const ToolForm = ({ userId, closeForm }) => {
 };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="tool-name">Tool Name:</label>
-      <input
-        type="text"
-        id="tool-name"
-        value={toolName}
-        onChange={(e) => setToolName(e.target.value)}
-      />
+    <div class="container">
+      <form class="page" onSubmit={handleSubmit}>
+        <label class="title" htmlFor="tool-name">Tool Name:</label>
+        <input class="input"
+          type="text"
+          id="tool-name"
+          value={toolName}
+          onChange={(e) => setToolName(e.target.value)}
+        />
 
-      <label htmlFor="tool-type">Tool Type:</label>
-      <select
-        id="tool-type"
-        value={toolType}
-        onChange={(e) => setToolType(e.target.value)}
-      >
-        <option value="">Select a tool type</option>
-        {toolTypes.map((type) => (
-          <option key={type.id} value={type.id}>
-            {type.name}
-          </option>
-        ))}
-      </select>
+        <label class="title" htmlFor="tool-type">Tool Type:</label>
+        <select class="input"
+          id="tool-type"
+          value={toolType}
+          onChange={(e) => setToolType(e.target.value)}
+        >
+          <option value="">Select a tool type</option>
+          {toolTypes.map((type) => (
+             <option key={type.id} value={type.id}>
+              {type.name}
+            </option>
+          ))}
+        </select>
 
-      <label htmlFor="tool-description">Description:</label>
-      <textarea
-        id="tool-description"
-        value={toolDescription}
-        onChange={(e) => setToolDescription(e.target.value)}
-      ></textarea>
+        <label class="title" htmlFor="tool-description">Description:</label>
+        <textarea class="input"
+           id="tool-description"
+          value={toolDescription}
+          onChange={(e) => setToolDescription(e.target.value)}
+        ></textarea>
 
-      <button type="submit">Add Tool</button>
-    </form>
-
+        <button class="button"type="submit">Add Tool</button>
+      </form>
+    </div>
   );
 };
 
