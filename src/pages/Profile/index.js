@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import PendingRequestForm from "../../components/PendingRequestForm";
-import "./index.css"
 import API from "../../utils/API";
 import DataWindow from "../../components/DataWindow/DataWindow";
 import ToolForm from "../../components/ToolForm";
