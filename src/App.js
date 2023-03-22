@@ -5,8 +5,6 @@ import SignIn from "./pages/SignIn/index";
 import Home from "./pages/Home/index";
 import Profile from "./pages/Profile/index";
 import API from "./utils/API";
-import ToolForm from './components/ToolForm';
-import ToolArrangementForm from './components/ToolArrangement';
 
 
 function App() {
@@ -54,8 +52,6 @@ function App() {
               <Route path="/" element={<SignIn setToken={setToken} setUserId={setUserId} setUsername={setUsername} setIsLoggedIn={setIsLoggedIn} userId={userId}/>}/>
               {console.log('Parent - token:', token)}
               <Route path="/profile/:id" element={<Profile token={token} userId={userId} username={username}/>}/>
-              {/* <Route path="/toolform/" element={<ToolForm token={token} userId={userId} username={username}/>}/>
-              <Route path="/toolarrangement/" element={<ToolArrangementForm token={token} userId={userId} username={username}/>}/> */}
               <Route path="/home" element={<Home isLoggedIn={isLoggedIn} token={token} userId={userId}/>}/>
               <Route path="*" element={<h1>404 page not found</h1>}/>
           </Routes>

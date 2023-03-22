@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import API from "../../utils/API"
 import DataWindow from "../../components/DataWindow/DataWindow";
 import ToolArrangementForm from "../../components/ToolArrangement";
-import "./index.css";
 
 const Home = (props) => {
     console.log('Home - token:', props.token);
