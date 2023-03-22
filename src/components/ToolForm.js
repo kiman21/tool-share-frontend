@@ -59,7 +59,7 @@ const ToolForm = ({ userId, onSubmit }) => {
           onChange={(e) => setToolDescription(e.target.value)}
         ></textarea>
 
-        <button class="button"type="submit">Add Tool</button>
+        <button class="button"type="submit">Add this Tool</button>
       </form>
     </div>
   );

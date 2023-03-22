@@ -46,6 +46,21 @@ body {
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
+.small-button {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    background-color: #E27425;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: fit-content;
+    font-size: large;
+    color: black;
+    border: 1px solid gray;
+    border-radius: 5px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
 .input {
     border: 1px solid black;
     opacity: 50%;

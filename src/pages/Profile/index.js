@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import PendingRequestForm from "../../components/PendingRequestForm";
-// import "./style.css";
+import "./index.css"
 import API from "../../utils/API";
-import DataWindow from "../../components/DataWindow";
+import DataWindow from "../../components/DataWindow/DataWindow";
 import ToolForm from "../../components/ToolForm";
+
 
 const Profile = (props) => {
   console.log('Profile - token:', props.token);
@@ -68,8 +69,7 @@ const Profile = (props) => {
       const currentDate = new Date(current.date);
       return latestDate > currentDate ? latest : current;
   }, null);
-    setLatestConfirmedShare({ ...latestShare, currentuserId: props.userId });
-  }, [props.token]);
+  setLatestConfirmedShare(confirmedShares.length > 0 ? { ...latestShare, currentusserId: props.userId } : null);  }, [props.token]);
 
   useEffect(() => {
     fetchToolsData();
@@ -132,6 +132,8 @@ const Profile = (props) => {
     console.log("Token before deleteTool API request:", props.token);
     try {
       await API.deleteTool(tool.id, props.token);
+      fetchUserData();
+      fetchToolsData();
     } catch (error) {
       console.error('Failed to delete tool:', error);
     }
@@ -153,11 +155,20 @@ const Profile = (props) => {
 
   return (
       <div className="Profile">
-          {isMyPage && <button onClick={() => setShowToolForm(true)}>Add Tool</button>}
-          <div>
+          {isMyPage && <button className="button ml-20 mt-10" onClick={() => setShowToolForm(true)}>Add a Tool</button>}
+          <div className="ml-10 mt-3">
+          {showToolForm && (
+            <ToolForm
+            token={props.token}
+            userId={props.userId}
+            onSubmit={handleSubmit}
+            closeForm={() => setShowToolForm(false)}
+            />
+          )}
           {pendingRequests.map(request => (
             <PendingRequestForm
               key={request.id}
+              toolname={request.tool?.toolname}
               onClose={() => fetchSharesData()}
               onRequestConfirm={() => {
                 handleRequestConfirm(request.id);
@@ -171,8 +182,8 @@ const Profile = (props) => {
           ))}
           </div>
           {latestConfirmedShare && (
-            <div>
-              <h3>Most recent confirmed share request:</h3>
+            <div className="ml-20 mt-10 border-2 border-gray-700 max-w-2xl p-3">
+              <h3 className="text-lg">Your current share:</h3>
               <p>Date: {new Date(latestConfirmedShare.date).toLocaleDateString()}</p>
               <p>Tool: {latestConfirmedShare && latestConfirmedShare.tool && latestConfirmedShare.tool.toolname}</p>
               {latestConfirmedShare && isMyPage && latestConfirmedShare.Borrower_Id === props.userId && (
@@ -186,7 +197,7 @@ const Profile = (props) => {
             renderItem={(item) => (
               <>
                 {item.toolname}
-                <button onClick={() => handleDeleteToolsButtonClick(item)}>Delete Tool</button>
+                <button className="small-button" onClick={() => handleDeleteToolsButtonClick(item)}>Delete Tool</button>
               </>
             )}
           />
@@ -200,14 +211,6 @@ const Profile = (props) => {
             dataList={sharesAsLender}
             renderItem={(item) => `Date: ${new Date(item.date).toLocaleDateString()}, Tool: ${item.tool?.toolname}, Borrower: ${item.borrowerUsername}`}
           />
-          {showToolForm && (
-            <ToolForm
-            token={props.token}
-            userId={props.userId}
-            onSubmit={handleSubmit}
-            closeForm={() => setShowToolForm(false)}
-            />
-          )}
       </div>
             
   );
