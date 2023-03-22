@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import API from "../../utils/API"
-import DataWindow from "../../components/DataWindow";
+import DataWindow from "../../components/DataWindow/DataWindow";
 import ToolArrangementForm from "../../components/ToolArrangement";
+import "./index.css";
 
 const Home = (props) => {
     console.log('Home - token:', props.token);
@@ -36,7 +37,7 @@ const Home = (props) => {
           renderItem={(tool) => (
             <>
               {tool.toolname}
-              <button
+              <button className='small-button'
                 onClick={() => { 
                   console.log('Selected tool:', tool);
                   setSelectedTool(tool);

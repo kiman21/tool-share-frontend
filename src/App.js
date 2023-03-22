@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Nav from "./components/Nav/index"
-import SignIn from "./pages/Signin/index";
+import SignIn from "./pages/SignIn/index";
 import Home from "./pages/Home/index";
 import Profile from "./pages/Profile/index";
 import API from "./utils/API";
@@ -54,8 +54,8 @@ function App() {
               <Route path="/" element={<SignIn setToken={setToken} setUserId={setUserId} setUsername={setUsername} setIsLoggedIn={setIsLoggedIn} userId={userId}/>}/>
               {console.log('Parent - token:', token)}
               <Route path="/profile/:id" element={<Profile token={token} userId={userId} username={username}/>}/>
-              <Route path="/toolform/" element={<ToolForm token={token} userId={userId} username={username}/>}/>
-              <Route path="/toolarrangement/" element={<ToolArrangementForm token={token} userId={userId} username={username}/>}/>
+              {/* <Route path="/toolform/" element={<ToolForm token={token} userId={userId} username={username}/>}/>
+              <Route path="/toolarrangement/" element={<ToolArrangementForm token={token} userId={userId} username={username}/>}/> */}
               <Route path="/home" element={<Home isLoggedIn={isLoggedIn} token={token} userId={userId}/>}/>
               <Route path="*" element={<h1>404 page not found</h1>}/>
           </Routes>
